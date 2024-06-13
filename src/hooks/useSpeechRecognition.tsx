@@ -7,8 +7,6 @@ const useSpeech = () => {
   const [status, setStatus] = useState('idle')
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
-  console.log("transcript", transcript, "listening", listening)
-
   useEffect(() => {
     if (status === 'recording') {
       SpeechRecognition.startListening({ continuous: true });

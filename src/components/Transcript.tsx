@@ -5,36 +5,52 @@ import Idle from './sections/Idle';
 import Recording from './sections/Recording';
 import Stop from './sections/Stop';
 import useSpeech from '../hooks/useSpeechRecognition';
+import { useState } from 'react';
 
 const Transcript = () => {
-
+  const [summary, setSummary] = useState<any>('')
   const { status, setStatus, transcript, startSpeech, stopSpeech } = useSpeech();
 
+  const getSummary = async () => {
+    setStatus('summary')
+    setSummary('loading')
+    try {
+      const response = await fetch('/api/transcribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: transcript })
+      })
+      const data = await response.json();
+      if(data.error) {
+        setSummary({ error: data.error.code})
+        return
+      }
+
+      setSummary(data.text)
+    } catch (error) {
+      console.error("Error processing speech:", error);
+    }
+  }
+
+  const handleShare = async () => {
+    console.log('share')
+  }
+
   return (
-    <div className='h-screen flex flex-col py-12 md:py-40 justify-between items-center'>
-      <div className='text-center w-full px-12 md:w-2/3 lg:w-1/3'>
-        <h1 className='py-4 text-xl font-semibold'>Transcript</h1>
-        <p>{transcript}</p>
-      </div>
-      <div 
-        className={`
-          w-[28rem] h-[28rem] p-20 rounded-full shadow-3xl hover:3xl-hover border
-          shadow-primary-default border-primary-default
-          flex flex-col justify-center items-center gap-6
-          font-semibold text-center
-          ${status === 'recording' && 'animate-pulse'}
-        `}
-      >
-        {
-          status === 'idle'
-            ? <Idle startRecording={startSpeech} />
-            : status === 'recording'
-              ? <Recording stopRecording={stopSpeech} />
-              : status === 'stopped'
-                ? <Stop setStatus={setStatus} />
-                : <p>next</p>
-        }
-      </div>
+    <div className='min-h-[30rem] flex flex-col justify-center items-center py-4 px-8 md:px-16'>
+      {
+        status === 'idle'
+          ? <Idle startRecording={startSpeech} />
+          : status === 'recording'
+            ? <Recording stopRecording={stopSpeech} status={status} />
+            : status === 'stopped' || status === 'summary'
+              ? <Stop
+                  transcript={transcript} getSummary={getSummary}
+                  share={handleShare} setStatus={setStatus}
+                  status={status} summary={summary}
+                />
+              : <p>next</p>
+      }
     </div>
   )
 }
