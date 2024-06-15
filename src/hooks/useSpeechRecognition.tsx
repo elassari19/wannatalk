@@ -20,18 +20,18 @@ const useSpeech = () => {
     }
   }, [status])
 
-  const startSpeech = () => {
+  const startRecording = () => {
     setStatus('recording')
 
   }
-  const stopSpeech = () => {
+  const stopRecording = () => {
     setStatus('stopped')
   }
 
   return {
     transcript,
-    startSpeech,
-    stopSpeech,
+    startRecording,
+    stopRecording,
     status,
     setStatus,
   }
