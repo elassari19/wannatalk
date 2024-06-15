@@ -5,7 +5,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 const useSpeech = () => {
   const [status, setStatus] = useState('idle')
-  const { transcript, listening, resetTranscript } = useSpeechRecognition();
+  const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
   useEffect(() => {
     if (status === 'recording') {

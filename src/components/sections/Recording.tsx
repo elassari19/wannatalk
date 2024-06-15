@@ -1,11 +1,13 @@
 import React from 'react'
+import RecordeTime from '../RecordeTime'
 
 interface IProps {
   stopRecording: () => void
   status: string
+  setStatus: (status: string) => void
 }
 
-const Recording = ({ stopRecording, status }: IProps) => {
+const Recording = ({ stopRecording, status, setStatus }: IProps) => {
   return (
     <div
       className={`
@@ -18,12 +20,7 @@ const Recording = ({ stopRecording, status }: IProps) => {
     >
       <p className='text-primary-muted text-2xl'>Recording...</p>
         <button onClick={stopRecording} className='p-4 w-full rounded-xl border-2 border-primary-default text-primary-default'>Tap to stop</button>
-      <div className='flex gap-4 items-center'>
-        <div className='w-8 h-8 rounded-full p-1 bg-primary-default flex justify-center items-center'>
-          <div className='w-4 h-4 border-2 border-bg rounded-full' />
-        </div>
-        <p className='text-primary-default tex-lg'>00:01</p>
-      </div>
+        <RecordeTime setStatus={setStatus} />
       <p className='text-primary-muted text-sm'>3 min max</p>
 
     </div>

@@ -1,20 +1,30 @@
 import Link from 'next/link'
 import React from 'react'
 import WithGuard from '@/components/WithGuard'
+import { fetchTranscripts } from '../../../lib/server-action'
 
-const page = () => {
+interface IProps {
+  searchParams: {
+    id: string
+  }
+}
+
+const page = async ({ searchParams }: IProps) => {
+  const data = await fetchTranscripts(searchParams.id)
+
   return (
-    <div className='min-h-[38rem] flex flex-col gap-4 items-center justify-between'>
+    <div className='min-h-[38rem] mt-28 flex flex-col gap-4 items-center justify-between'>
 
       <WithGuard>
         <div className='flex flex-col items-center gap-2'>
           <h1 className='text-primary-default text-xl font-semibold'>History</h1>
+          {/* <History id={searchParams.id} /> */}
           {
-            Array(5).fill(0).map((_, i) => (
-              <Link href={`chat/${i}`} className='flex gap-2 text-primary-foreground' key={i}>
+            data.map((doc: any, i) => (
+              <Link href={`chat/${doc.id}`} className='flex gap-2 text-primary-foreground' key={i}>
                 {/* date */}
-                <span>{new Date().getUTCFullYear()}</span>
-                <span>{new Date().getTime()}</span>
+                <span>{new Date(doc.createdAt).toLocaleString()}: </span>
+                <span>{doc.text.slice(0, 20)}</span>
               </Link>
             ))
           }

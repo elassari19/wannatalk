@@ -12,9 +12,9 @@ const WithGuard = ({ children }: IProps) => {
 
   if(!user) return redirect('/')
   return (
-    <div>
+    <>
       {children}
-    </div>
+    </>
   )
 }
 

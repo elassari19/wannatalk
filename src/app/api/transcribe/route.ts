@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       temperature: 0.7,
       top_p: 1,
     });
-    console.log("response", response)
+    console.log("response", response.choices[0].message.content)
 
     return NextResponse.json({
       text: response.choices[0].message.content,

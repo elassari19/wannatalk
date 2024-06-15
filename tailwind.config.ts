@@ -23,7 +23,7 @@ const config: Config = {
       },
       boxShadow: {
         '3xl': '0 5px 60px 20px',
-        '3xl-hover': '0 5px 60px 0px',
+        '3xl-sm': '0 5px 100px -30px',
       }
     },
   },
