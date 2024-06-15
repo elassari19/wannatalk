@@ -1,13 +1,15 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { app, auth } from '@/lib/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { revalidateUrlPath } from '../lib/server-action'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { addDoc, collection, getDocs, getFirestore, query, serverTimestamp, where } from 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore'
+import Image from 'next/image'
+import logo from '@/assets/logo.svg'
 
 const AuthProvider = () => {
   const [user, setUser] = useAuthState(auth)
@@ -43,14 +45,16 @@ const AuthProvider = () => {
 
     return (
     <>
-      <Link href="/" className='text-sm bg-primary-default text-bg rounded-lg p-2'>WannaTalk AI</Link>
+      <Link href="/" className='rounded-lg p-2'>
+        <Image src={logo} alt="Logo" width={30} height={30} />
+      </Link>
       {
         user
         ? <>
             <Link href={`/chat?id=${user.uid}`} className='text-primary-muted text-sm font-bold hover:bg-primary-default/20 p-2 rounded-md'>Recent Summary</Link>
-            <button className='p-2 bg-bg border border-primary-default rounded-md text-sm' onClick={loginOut}>Sign Out</button>
+            <button className='p-2 text-primary-default border border-primary-default rounded-full px-4 text-sm' onClick={loginOut}>Sign Out</button>
           </>
-        : <button className='p-2 bg-primary-default rounded-md text-bg text-sm' onClick={loginWithGoogle}>Login with Google</button>
+        : <button className='p-2 border border-primary-default rounded-full px-4 text-primary-default hover:bg-primary-default/20 text-sm' onClick={loginWithGoogle}>Login</button>
       }
     </>
   )

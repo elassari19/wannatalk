@@ -14,7 +14,6 @@ import { auth } from '../lib/firebase';
 
 const Transcript = () => {
   const [user, setUser] = useAuthState(auth)
-  console.log('id', user?.uid)
 
   const [summary, setSummary] = useState<any>('')
   // const { status, setStatus, transcript, startSpeech, stopSpeech } = useSpeech();
@@ -55,7 +54,6 @@ const Transcript = () => {
     const res = await saveSummary({ text: transcript, summary: data }, user?.uid || '')
 
     if(res?.status === 200) {
-      alert(res?.data)
       revalidateUrlPath('/')
     }
   }
