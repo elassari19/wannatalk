@@ -6,9 +6,7 @@ import Recording from './sections/Recording';
 import Stop from './sections/Stop';
 import useSpeech from '../hooks/useSpeechRecognition';
 import { useEffect, useState } from 'react';
-import useSpeechRecognition from '../hooks/useRecord';
 import { revalidateUrlPath, saveSummary } from '../lib/server-action';
-import { redirect } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
 
@@ -17,7 +15,7 @@ const Transcript = () => {
 
   const [summary, setSummary] = useState<any>('')
   // const { status, setStatus, transcript, startSpeech, stopSpeech } = useSpeech();
-  const { status, setStatus, transcript, startRecording, stopRecording } = useSpeechRecognition({ interimResults: true, continuous: false, lang: 'en-US' });
+  const { status, setStatus, transcript, startRecording, stopRecording } = useSpeech();
 
   const getSummary = async () => {
     if(!user?.uid) {
