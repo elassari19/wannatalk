@@ -48,8 +48,16 @@ const Transcript = () => {
   }
   
   const addSummaryToDb = async (data: string) => {
-    console.log('start saving', data)
+    if(!user?.uid) {
+      alert('User not authenticated')
+      return
+    }
+
     const res = await saveSummary({ text: transcript, summary: data }, user?.uid!)
+    if(res?.status === 500) {
+      alert(res.error)
+      return
+    }
 
     if(res?.status === 200) {
       revalidateUrlPath('/')
