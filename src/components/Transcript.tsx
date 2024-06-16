@@ -68,7 +68,7 @@ const Transcript = () => {
   }, [summary])
 
   return (
-    <div className='h-full flex flex-col justify-center items-center px-8 md:px-16'>
+    <div className='h-full flex flex-col justify-center items-center px-0 md:px-16'>
       {
         status === 'idle'
           ? <Idle startRecording={startRecording} />

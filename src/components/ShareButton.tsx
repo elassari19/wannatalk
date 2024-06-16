@@ -8,8 +8,10 @@ interface IProps {
 
 const ShareButton = ({ postId }: IProps) => {
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+
   const handleShare = async () => {
-    await navigator.clipboard.writeText(process.env.NEXT_PUBLIC_BASE_URL + '/chat/' + postId);
+    await navigator.clipboard.writeText(baseUrl + '/chat/' + postId);
   }
 
   return (

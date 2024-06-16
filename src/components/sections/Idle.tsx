@@ -8,7 +8,7 @@ function Idle({ startRecording }: IProps) {
   return (
     <div
       className={`
-        w-[26rem] h-[26rem] p-16 rounded-full shadow-3xl hover:3xl-hover border
+         w-[90vw] h-[90vw] max-w-[26rem] max-h-[26rem] p-16 rounded-full shadow-3xl hover:3xl-hover border
         shadow-primary-default border-primary-default
         flex flex-col justify-center items-center gap-4
         font-semibold text-center
