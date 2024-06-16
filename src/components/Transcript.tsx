@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@/lib/firebase';
 import { useRecordVoice } from '../hooks/useRecordVioce';
 import { addDoc, collection } from 'firebase/firestore';
+import { saveSummary } from '../lib/server-action';
 
 const Transcript = () => {
   const [user, setUser] = useAuthState(auth)
@@ -53,11 +54,7 @@ const Transcript = () => {
       alert('User not authenticated')
       return
     }
-    const docRef = await addDoc(collection(db, "Transcripts"), {
-      ...data,
-      createdAt: Date.now(),
-      userId: id,
-    });
+    const docRef = await saveSummary(data, id);
 
     if(docRef.id) {
       setPostId(docRef.id)

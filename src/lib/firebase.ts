@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFirestore } from "firebase/firestore";
 import { initializeFirestore } from 'firebase/firestore'
-
+import { enableLogging } from '@firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,12 +19,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
+const app = initializeApp(firebaseConfig);
 
 const db = initializeFirestore(app, {
   experimentalAutoDetectLongPolling: true
 })
 
 const auth = getAuth(app)
+enableLogging(true);
 
 export {app, auth, db}

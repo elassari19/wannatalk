@@ -18,7 +18,7 @@ export const saveSummary = async (data: any, id: string) => {
       createdAt: Date.now(),
       userId: id,
     });
-    return { status: 200, data: docRef.id};
+    return { status: 200, id: docRef.id};
   } catch (error) {
     return { status: 500, error}
     // console.log("Error adding document: ", error);

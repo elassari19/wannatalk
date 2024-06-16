@@ -26,6 +26,7 @@ export async function POST(req: Request) {
     const data = await openai.audio.transcriptions.create({
       file: readStream,
       model: "whisper-1",
+      language: "en",
     });
 
     // Remove the temporary file after successful processing
