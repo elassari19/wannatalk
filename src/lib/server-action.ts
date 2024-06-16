@@ -21,7 +21,8 @@ export const saveSummary = async (data: any, id: string) => {
     });
     return { status: 200, data: docRef.id};
   } catch (error) {
-    console.log("Error adding document: ", error);
+    return { status: 500, error}
+    // console.log("Error adding document: ", error);
   }
 };
 

@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   const filePath = '/tmp/input.wav';
 
   try {
-    console.log("Processing audio...")
+    // console.log("Processing audio...")
 
     // Write the audio data to a temporary WAV file synchronously
     fs.writeFileSync(filePath, audio);

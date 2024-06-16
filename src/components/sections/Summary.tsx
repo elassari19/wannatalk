@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const Summary = ({ summary, status }: IProps) => {
-  console.log('summary', summary)
+  // console.log('summary', summary)
   return (
     <div className='text-start'>
     {

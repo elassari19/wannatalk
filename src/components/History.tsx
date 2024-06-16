@@ -28,7 +28,7 @@ const History = ({ id }: IProps) => {
   //   getTranscripts(id)
   // }, [id])
 
-  console.log('transcpts', transcpts)
+  // console.log('transcpts', transcpts)
   return (
     <div>
       {

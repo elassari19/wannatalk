@@ -11,7 +11,7 @@ const RecordeTime = ({ setStatus }: IProps) => {
 
   useEffect(() => {
     if(time === 180000) {
-      console.log('time up', time)
+      // console.log('time up', time)
       setStatus('stopped')
     }
     const timer = setTimeout(() => {

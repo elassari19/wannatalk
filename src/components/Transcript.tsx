@@ -48,7 +48,7 @@ const Transcript = () => {
   }
   
   const readSummary = async (data: string) => {
-    console.log('start saving')
+    // console.log('start saving')
     const res = await saveSummary({ text: transcript, summary: data }, user?.uid || '')
 
     if(res?.status === 200) {
@@ -63,7 +63,7 @@ const Transcript = () => {
   }, [summary])
 
   const handleShare = async () => {
-    console.log('share')
+    // console.log('share')
   }
 
   return (

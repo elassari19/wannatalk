@@ -40,7 +40,7 @@ export const useRecordVoice = () => {
       const { text } = response;
       setTranscript(text);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -59,7 +59,7 @@ export const useRecordVoice = () => {
 
     mediaRecorder.onstop = () => {
       const audioBlob = new Blob(chunks.current, { type: "audio/wav" });
-      console.log('audioBlob', audioBlob)
+      // console.log('audioBlob', audioBlob)
       blobToBase64(audioBlob, getText);
     };
 
