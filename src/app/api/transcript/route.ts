@@ -12,16 +12,14 @@ export async function POST(req: Request) {
   const audio = Buffer.from(base64Audio, "base64");
 
   // Define the file path for storing the temporary WAV file
-  const filePath = path.join(process.cwd(), 'input.wav');
-  try {
-    // Write the audio data to a temporary WAV file synchronously
-    fs.writeFileSync(filePath, audio);
-  } catch (error) {
-    console.log("Error writing audio to file:", error);
-  }
+  const filePath = '/tmp/input.wav';
 
   try {
     console.log("Processing audio...")
+
+    // Write the audio data to a temporary WAV file synchronously
+    fs.writeFileSync(filePath, audio);
+
     // Create a readable stream from the temporary WAV file
     const readStream = fs.createReadStream(filePath);
 
