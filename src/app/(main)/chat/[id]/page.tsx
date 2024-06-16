@@ -3,6 +3,7 @@ import WithGuard from '@/components/WithGuard'
 import { getTranscriptById } from '@/lib/server-action'
 import Speech from '@/components/sections/Speech'
 import Summary from '@/components/sections/Summary'
+import ShareButton from '@/components/ShareButton'
 
 interface IProps {
   params: {
@@ -17,7 +18,7 @@ const page = async ({ params}: IProps) => {
   // console.log("transcript", transcript)
 
   return (
-    <div className='pt-28 w-screen flex justify-center items-center'>
+    <div className='pt-28 w-screen min-h-[40rem] flex flex-col justify-around items-center'>
       {
         <WithGuard>
           <div className='w-screen flex flex-col items-center gap-16 px-8 md:w-3/4 lg:w-4/6'>
@@ -26,6 +27,7 @@ const page = async ({ params}: IProps) => {
           </div>
         </WithGuard>
       }
+      <ShareButton postId={params.id} />
     </div>
   )
 }

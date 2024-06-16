@@ -2,7 +2,7 @@
 
 import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, serverTimestamp, where } from "firebase/firestore";
 import { revalidatePath } from "next/cache"
-import { app } from "./firebase";
+import { app, db } from "./firebase";
 // import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 // import { app } from "@/lib/firebase";
 
@@ -11,7 +11,6 @@ export const revalidateUrlPath = (path: string) => {
 }
 
 export const saveSummary = async (data: any, id: string) => {
-  const db = getFirestore(app);
 
   try {
     const docRef = await addDoc(collection(db, "Transcripts"), {
@@ -27,7 +26,6 @@ export const saveSummary = async (data: any, id: string) => {
 };
 
 // export const getTranscripts = async (id: any) => {
-//   const db = getFirestore(app);
 
 //   if (!id || id === "") {
 //     return { status: 400, data: "User not authenticated"};
@@ -40,7 +38,6 @@ export const saveSummary = async (data: any, id: string) => {
 // }
 
 export const fetchTranscripts = async (id: any) => {
-  const db = getFirestore(app);
 
   const trans = collection(db, 'Transcripts');
   const q = query(trans, where('userId', '==', id));
@@ -54,7 +51,6 @@ export const fetchTranscripts = async (id: any) => {
 }
 
 export const getTranscriptById = async (id: any) => {
-  const db = getFirestore(app);
 
   const docSnap = await getDoc(doc(db, 'Transcripts', id));
 

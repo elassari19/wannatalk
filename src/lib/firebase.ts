@@ -4,6 +4,8 @@ import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFirestore } from "firebase/firestore";
+import { initializeFirestore } from 'firebase/firestore'
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,6 +21,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 
+const db = initializeFirestore(app, {
+  experimentalAutoDetectLongPolling: true
+})
+
 const auth = getAuth(app)
 
-export {app, auth}
+export {app, auth, db}

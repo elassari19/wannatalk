@@ -5,18 +5,15 @@ import Idle from './sections/Idle';
 import Recording from './sections/Recording';
 import Stop from './sections/Stop';
 import { useEffect, useState } from 'react';
-import { revalidateUrlPath, saveSummary } from '../lib/server-action';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { app, auth } from '../lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import { useRecordVoice } from '../hooks/useRecordVioce';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 
 const Transcript = () => {
   const [user, setUser] = useAuthState(auth)
   const [postId, setPostId] = useState<string>('') 
   const [summary, setSummary] = useState<any>('')
-
-  const db = getFirestore(app);
 
   // const { status, setStatus, transcript, startSpeech, stopSpeech } = useSpeech();
   const { status, setStatus, transcript, startRecording, stopRecording } = useRecordVoice();
@@ -73,11 +70,6 @@ const Transcript = () => {
     }
   }, [summary])
 
-  const handleShare = async () => {
-    await navigator.clipboard.writeText(postId);
-      alert('Text copied to clipboard!' + postId);
-  }
-
   return (
     <div className='h-full flex flex-col justify-center items-center px-8 md:px-16'>
       {
@@ -88,7 +80,7 @@ const Transcript = () => {
             : status === 'stopped' || status === 'summary'
               ? <Stop
                   transcript={transcript} getSummary={getSummary}
-                  share={handleShare} setStatus={setStatus}
+                  postId={postId} setStatus={setStatus}
                   status={status} summary={summary}
                 />
               : <p>next</p>

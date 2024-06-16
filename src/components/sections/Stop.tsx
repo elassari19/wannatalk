@@ -2,16 +2,17 @@ import React from 'react'
 import Speech from './Speech'
 import Summary from './Summary'
 import SummaryButton from '../SummaryButton'
+import ShareButton from '../ShareButton'
 
 interface IProps {
   setStatus: (status: string) => void
   status: string
   getSummary: () => void
-  share: () => void
+  postId: string
   transcript: string
   summary: any
 }
-const Stop = ({ share, getSummary, status, setStatus, transcript, summary }: IProps) => {
+const Stop = ({ postId, getSummary, status, setStatus, transcript, summary }: IProps) => {
 
   return (
     <div className='flex-1 flex flex-col justify-between items-center mt-24 mb-16'>
@@ -21,7 +22,7 @@ const Stop = ({ share, getSummary, status, setStatus, transcript, summary }: IPr
       </div>
       <div className='flex flex-col gap-2 w-full'>
         <div className='flex flex-col gap-2 w-full justify-center items-center'>
-          <button onClick={share} className='p-4 w-[15rem] rounded-xl border-2 border-primary-default text-primary-default'>Share</button>
+          <ShareButton postId={postId} />
           {
             status === 'stopped' && (
               <SummaryButton getSummary={getSummary} />

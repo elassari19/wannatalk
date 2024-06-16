@@ -2,18 +2,16 @@
 
 import React, { useEffect } from 'react'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { app, auth } from '@/lib/firebase'
+import { auth } from '@/lib/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { revalidateUrlPath } from '../lib/server-action'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { getFirestore } from 'firebase/firestore'
 import Image from 'next/image'
 import logo from '@/assets/logo.svg'
 
 const AuthProvider = () => {
   const [user, setUser] = useAuthState(auth)
-  const db = getFirestore(app);
 
   const googleAuth = new GoogleAuthProvider()
 

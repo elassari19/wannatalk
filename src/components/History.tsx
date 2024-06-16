@@ -1,8 +1,8 @@
 'use client'
 
-import { collection, doc, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect } from 'react'
-import { app } from '../lib/firebase';
+import { db } from '@/lib/firebase';
 import Link from 'next/link';
 
 interface IProps {
@@ -13,7 +13,6 @@ const History = ({ id }: IProps) => {
   const [transcpts, setTranscpts] = React.useState<any>([])
 
   const getTranscripts = async (id: any) => {
-    const db = getFirestore(app);
 
     if (!id || id === "") setTranscpts([])
   
