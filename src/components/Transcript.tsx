@@ -4,18 +4,18 @@ import 'regenerator-runtime/runtime';
 import Idle from './sections/Idle';
 import Recording from './sections/Recording';
 import Stop from './sections/Stop';
-import useSpeech from '../hooks/useSpeechRecognition';
 import { useEffect, useState } from 'react';
 import { revalidateUrlPath, saveSummary } from '../lib/server-action';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
+import { useRecordVoice } from '../hooks/useRecordVioce';
 
 const Transcript = () => {
   const [user, setUser] = useAuthState(auth)
 
   const [summary, setSummary] = useState<any>('')
   // const { status, setStatus, transcript, startSpeech, stopSpeech } = useSpeech();
-  const { status, setStatus, transcript, startRecording, stopRecording } = useSpeech();
+  const { status, setStatus, transcript, startRecording, stopRecording } = useRecordVoice();
 
   const getSummary = async () => {
     if(!user?.uid) {
@@ -25,7 +25,7 @@ const Transcript = () => {
     setStatus('summary')
     setSummary('loading')
     try {
-      const response = await fetch('/api/transcribe', {
+      const response = await fetch('/api/summary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: transcript })
