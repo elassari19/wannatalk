@@ -47,9 +47,9 @@ const Transcript = () => {
     }
   }
   
-  const readSummary = async (data: string) => {
-    // console.log('start saving')
-    const res = await saveSummary({ text: transcript, summary: data }, user?.uid || '')
+  const addSummaryToDb = async (data: string) => {
+    console.log('start saving', data)
+    const res = await saveSummary({ text: transcript, summary: data }, user?.uid!)
 
     if(res?.status === 200) {
       revalidateUrlPath('/')
@@ -58,7 +58,7 @@ const Transcript = () => {
 
   useEffect(() => {
     if(summary.length > 0 && summary !== 'loading') {
-      readSummary(summary)
+      addSummaryToDb(summary)
     }
   }, [summary])
 
