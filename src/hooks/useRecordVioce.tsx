@@ -26,7 +26,7 @@ export const useRecordVoice = () => {
   };
 
   const getText = async (base64data: any) => {
-    // setTranscript("loading");
+    setTranscript("loading");
     try {
       const response = await fetch("/api/transcript", {
         method: "POST",
