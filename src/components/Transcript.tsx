@@ -12,6 +12,7 @@ import { useRecordVoice } from '../hooks/useRecordVioce';
 
 const Transcript = () => {
   const [user, setUser] = useAuthState(auth)
+  const [postId, setPostId] = useState<string>('') 
 
   const [summary, setSummary] = useState<any>('')
   // const { status, setStatus, transcript, startSpeech, stopSpeech } = useSpeech();
@@ -60,6 +61,7 @@ const Transcript = () => {
     }
 
     if(res?.status === 200) {
+      setPostId(res?.data!)
       revalidateUrlPath('/')
     }
   }
