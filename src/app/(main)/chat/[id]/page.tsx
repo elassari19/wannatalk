@@ -12,9 +12,9 @@ interface IProps {
 
 const page = async ({ params}: IProps) => {
 
-  console.log("params", params)
+  // console.log("params", params)
   const transcript = await getTranscriptById(params.id) as any
-  console.log("transcript", transcript)
+  // console.log("transcript", transcript)
 
   return (
     <div className='pt-28 w-screen flex justify-center items-center'>

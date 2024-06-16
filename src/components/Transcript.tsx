@@ -7,14 +7,17 @@ import Stop from './sections/Stop';
 import { useEffect, useState } from 'react';
 import { revalidateUrlPath, saveSummary } from '../lib/server-action';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../lib/firebase';
+import { app, auth } from '../lib/firebase';
 import { useRecordVoice } from '../hooks/useRecordVioce';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 
 const Transcript = () => {
   const [user, setUser] = useAuthState(auth)
   const [postId, setPostId] = useState<string>('') 
-
   const [summary, setSummary] = useState<any>('')
+
+  const db = getFirestore(app);
+
   // const { status, setStatus, transcript, startSpeech, stopSpeech } = useSpeech();
   const { status, setStatus, transcript, startRecording, stopRecording } = useRecordVoice();
 
@@ -48,32 +51,31 @@ const Transcript = () => {
     }
   }
   
-  const addSummaryToDb = async (data: string) => {
+  const addSummaryToDb = async (data: any, id: string) => {
     if(!user?.uid) {
       alert('User not authenticated')
       return
     }
+    const docRef = await addDoc(collection(db, "Transcripts"), {
+      ...data,
+      createdAt: Date.now(),
+      userId: id,
+    });
 
-    const res = await saveSummary({ text: transcript, summary: data }, user?.uid!)
-    if(res?.status === 500) {
-      alert(res.error)
-      return
-    }
-
-    if(res?.status === 200) {
-      setPostId(res?.data!)
-      revalidateUrlPath('/')
+    if(docRef.id) {
+      setPostId(docRef.id)
     }
   }
 
   useEffect(() => {
     if(summary.length > 0 && summary !== 'loading') {
-      addSummaryToDb(summary)
+      addSummaryToDb({ text: transcript, summary }, user?.uid!)
     }
   }, [summary])
 
   const handleShare = async () => {
-    // console.log('share')
+    await navigator.clipboard.writeText(postId);
+      alert('Text copied to clipboard!' + postId);
   }
 
   return (
